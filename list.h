@@ -1,9 +1,7 @@
-// =================================================================
-//
+ // =================================================================
 // File: list.h
-// Author:
-// Date:
-// 
+// Author: Iram Kim Pichardo - A01710231
+// Date: 9/29/2023
 // =================================================================
 #ifndef LIST_H
 #define LIST_H
@@ -61,6 +59,7 @@ private:
 
 public:
 	List();
+	List(const List<T>&);
 	~List();
 
 	uint  length() const;
@@ -130,7 +129,7 @@ bool List<T>::contains(T val) const {
 
 	p = head;
 	while (p != NULL) {
-		if(p->value == val) {
+		if (p->value == val) {
 			return true;
 		}
 		p = p->next;
@@ -224,8 +223,17 @@ T List<T>::last() const {
 template <class T>
 T List<T>::get(uint index) const {
 	T aux;
-
-	// TO DO
+	
+	//Parte 1 Tarea TO DO
+    if (index >= size) {
+        throw IndexOutOfBounds();
+    }
+    Node<T> *p;
+    p = head;
+    for (int i = 0; i < index; i++) {
+        p = p->next;
+    }
+    aux = p->value;
 	return aux;
 }
 
@@ -240,6 +248,7 @@ void List<T>::push_front(T val) {
 	q = new Node<T>(val);
 	q->next = head;
 	head = q;
+	// head = new Node<T>(val, head);
 	size++;
 }
 
@@ -275,7 +284,32 @@ void List<T>::push_back(T val) {
 // =================================================================
 template <class T>
 void List<T>::insert_at(T val, uint index) {
-	// TO DO
+    // Parte 2 Tarea TO DO
+    if (index > size) {
+        throw IndexOutOfBounds();
+    }   
+    if (index == 0) {
+        push_front(val);
+    }
+    else if (index == size) {
+        push_back(val);
+    }
+    else
+    {
+        Node<T> *p;
+        p = head;
+        for (int i = 0; i < index - 1; i++) {
+            p = p->next;
+        }
+        Node<T> *q = new Node<T>(val);
+        q->next = p->next;
+        p->next = q;
+        size++;
+       
+    }
+    
+
+    
 }
 
 // =================================================================
@@ -294,11 +328,12 @@ T List<T>::pop_front() {
 	}
 
 	p = head;
-
-	head = p->next;
 	val = p->value;
 
+	head = p->next;
+	p->next = NULL;
 	delete p;
+
 	size--;
 	return val;
 }
@@ -329,12 +364,13 @@ T List<T>::pop_back() {
 		p = p->next;
 	}
 
-	q->next = p->next;
 	val = p->value;
 
+	q->next = p->next;
+	p->next = NULL;
 	delete p;
-	size--;
 
+	size--;
 	return val;
 }
 
@@ -347,7 +383,24 @@ T List<T>::pop_back() {
 template <class T>
 T List<T>::remove_at(uint index) {
 	T aux;
-	// TO DO
+    //Parte 3 Tarea TO DO
+    Node <T> *p;
+    p = head;
+
+    if (index >= size) {
+        throw IndexOutOfBounds();
+    }
+    if (index == 0) {
+        return pop_front();
+    }
+    else if (index == size - 1) {
+        return pop_back();
+    }
+    for (i=0, i<index, i++) {
+        p = p->next;
+    }
+    aux = p->value;
+
 	return aux;
 }
 
@@ -359,7 +412,16 @@ T List<T>::remove_at(uint index) {
 // =================================================================
 template <class T>
 long int List<T>::indexOf(T val) const {
-	// TO DO
+	//Parte 4 Tarea TO DO
+    Node<T> *p;
+    p = head;
+    for (int i = 0; i < size; i++) {
+        if (p->value == val) {
+            return i;
+        }
+        p = p->next;
+    }
+
 	return -1;
 }
 
