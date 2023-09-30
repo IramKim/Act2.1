@@ -225,11 +225,15 @@ T List<T>::get(uint index) const {
 	T aux;
 	
 	//Parte 1 Tarea TO DO
+
+	//Complejidad O(1)
     if (index >= size) {
         throw IndexOutOfBounds();
     }
+
     Node<T> *p;
     p = head;
+	//Complejidad: O(n)
     for (int i = 0; i < index; i++) {
         p = p->next;
     }
@@ -285,6 +289,8 @@ void List<T>::push_back(T val) {
 template <class T>
 void List<T>::insert_at(T val, uint index) {
     // Parte 2 Tarea TO DO
+
+	//Complejidad: O(1)
     if (index > size) {
         throw IndexOutOfBounds();
     }   
@@ -298,6 +304,7 @@ void List<T>::insert_at(T val, uint index) {
     {
         Node<T> *p;
         p = head;
+		//Complejidad: O(n)
         for (int i = 0; i < index - 1; i++) {
             p = p->next;
         }
@@ -387,6 +394,7 @@ T List<T>::remove_at(uint index) {
     Node <T> *p;
     p = head;
 
+	//Complejidad: O(1)
     if (index >= size) {
         throw IndexOutOfBounds();
     }
@@ -396,6 +404,7 @@ T List<T>::remove_at(uint index) {
     else if (index == size - 1) {
         return pop_back();
     }
+	//Complejidad O(n)
     for (i=0, i<index, i++) {
         p = p->next;
     }
@@ -415,6 +424,7 @@ long int List<T>::indexOf(T val) const {
 	//Parte 4 Tarea TO DO
     Node<T> *p;
     p = head;
+	//Complejidad: O(n)
     for (int i = 0; i < size; i++) {
         if (p->value == val) {
             return i;
